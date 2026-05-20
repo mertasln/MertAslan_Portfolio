@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yakup Mert Aslan — Computer Engineer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#0a0a0f',
+            surface: '#111118',
+            card: '#15151f',
+            accent: '#a78bfa',
+            border: 'rgba(255,255,255,0.08)',
+          },
+          fontFamily: {
+            syne: ['Syne', 'sans-serif'],
+            dm: ['DM Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: #0a0a0f;
+      color: #e2e2e8;
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-syne { font-family: 'Syne', sans-serif; }
+    .font-dm { font-family: 'DM Sans', sans-serif; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #a78bfa 0%, #c084fc 40%, #e879f9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .frosted {
+      background: rgba(10, 10, 15, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-scrolled { 
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .tag-pill {
+      transition: all 0.2s ease;
+    }
+    .tag-pill:hover {
+      border-color: #a78bfa !important;
+      color: #a78bfa;
+    }
+
+    .project-card {
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      background: #1a1a28;
+    }
+    .project-card:hover .arrow-reveal {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .arrow-reveal {
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary {
+      background: #a78bfa;
+      color: #0a0a0f;
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover {
+      background: #c4b5fd;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #e2e2e8;
+      transition: all 0.2s ease;
+    }
+    .btn-ghost:hover {
+      border-color: #a78bfa;
+      color: #a78bfa;
+    }
+
+    .timeline-dot {
+      width: 12px; height: 12px;
+      background: #a78bfa;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 5px;
+      top: 24px;
+      bottom: 0;
+      width: 2px;
+      background: rgba(167, 139, 250, 0.2);
+    }
+
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; }
+    ::-webkit-scrollbar-thumb { background: rgba(167,139,250,0.3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(167,139,250,0.5); }
+
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .pulse-green { animation: pulse-green 2s ease-in-out infinite; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+
+    .mosaic-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 768px) {
+      .mosaic-grid { grid-template-columns: 1fr; }
+    }
+    .mosaic-grid > div {
+      border-right: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .mosaic-grid > div:nth-child(2n) {
+      border-right: none;
+    }
+    .mosaic-grid > div:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+    @media (max-width: 768px) {
+      .mosaic-grid > div {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .mosaic-grid > div:last-child {
+        border-bottom: none;
+      }
+    }
+
+    /* Animation Canvas Styles */
+    #hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0; /* Behind content */
+      pointer-events: none; /* Let clicks pass through */
+    }
+  </style>
+</head>
+<body class="font-dm">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="font-syne font-bold text-xl tracking-tight text-white">YM.</a>
+      
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#projects" class="text-sm text-gray-400 hover:text-white transition-colors duration-200">Projects</a>
+        <a href="#skills" class="text-sm text-gray-400 hover:text-white transition-colors duration-200">Skills</a>
+        <a href="#experience" class="text-sm text-gray-400 hover:text-white transition-colors duration-200">Experience</a>
+        <a href="#contact" class="text-sm text-gray-400 hover:text-white transition-colors duration-200">Contact</a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button id="menuBtn" class="md:hidden text-white focus:outline-none" aria-label="Open menu">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] bg-dark/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8">
+    <button id="closeMenuBtn" class="absolute top-5 right-6 text-white">
+      <i data-lucide="x" class="w-7 h-7"></i>
+    </button>
+    <a href="#projects" class="mobile-link font-syne text-3xl font-bold text-white hover:text-accent transition-colors">Projects</a>
+    <a href="#skills" class="mobile-link font-syne text-3xl font-bold text-white hover:text-accent transition-colors">Skills</a>
+    <a href="#experience" class="mobile-link font-syne text-3xl font-bold text-white hover:text-accent transition-colors">Experience</a>
+    <a href="#contact" class="mobile-link font-syne text-3xl font-bold text-white hover:text-accent transition-colors">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" class="min-h-screen flex items-center relative overflow-hidden">
+    <!-- Animated Background Canvas -->
+    <canvas id="hero-canvas"></canvas>
+
+    <div class="max-w-6xl mx-auto px-6 py-32 w-full relative z-10 pointer-events-none">
+      <!-- pointer-events-none on container, pointer-events-auto on interactive children if needed -->
+      <div class="pointer-events-auto">
+        <h1 class="fade-in-up delay-2 font-syne font-extrabold text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[1.05] mb-6">
+          Yakup Mert<br><span class="gradient-text">Aslan</span>
+        </h1>
+
+        <p class="fade-in-up delay-3 text-gray-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-10">
+          Full-stack developer crafting production SaaS tools, AI-powered platforms, and blockchain applications that ship and scale.
+        </p>
+
+        <div class="fade-in-up delay-4 flex flex-wrap gap-4 mb-10">
+          <a href="#projects" class="btn-primary px-7 py-3 rounded-lg text-sm font-semibold inline-flex items-center gap-2">
+            View my work <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+          </a>
+          <a href="#contact" class="btn-ghost px-7 py-3 rounded-lg text-sm font-semibold inline-flex items-center gap-2">
+            Get in touch <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ambient Light Overlay (kept for depth) -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="bg-surface py-24 sm:py-32 relative z-10">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-14">
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Selected Work</p>
+        <h2 class="font-syne font-bold text-3xl sm:text-4xl tracking-tight text-white">Projects</h2>
+      </div>
+
+      <div class="mosaic-grid rounded-xl overflow-hidden border border-white/[0.06]">
+        <!-- TLC Dealer -->
+        <a href="https://tlcdealer.com" target="_blank" class="project-card block p-7 sm:p-9 group cursor-pointer bg-card/50 h-full">
+          <div class="flex items-start justify-between mb-5">
+            <span class="text-3xl">🏢</span>
+            <span class="arrow-reveal inline-flex items-center gap-1 text-accent text-sm">
+              Visit <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </span>
+          </div>
+          <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wide uppercase mb-4 bg-accent/15 text-accent border border-accent/20">SaaS</span>
+          <h3 class="font-syne font-bold text-lg sm:text-xl text-white mb-3 group-hover:text-accent transition-colors duration-200">TLC Dealer</h3>
+          <p class="text-sm text-gray-400 leading-relaxed mb-5">Multi-tenant dealer network OS for HVAC distributors. AI vision barcoding, 150+ sub-dealer management.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">Next.js</span>
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">AI Vision</span>
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">Multi-tenant</span>
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">ERP</span>
+          </div>
+        </a>
+
+        <!-- Rawly.io -->
+        <a href="https://rawly.io" target="_blank" class="project-card block p-7 sm:p-9 group cursor-pointer bg-card/50 h-full">
+          <div class="flex items-start justify-between mb-5">
+            <span class="text-3xl">🤖</span>
+            <span class="arrow-reveal inline-flex items-center gap-1 text-green-400 text-sm">
+              Visit <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </span>
+          </div>
+          <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wide uppercase mb-4 bg-green-400/15 text-green-400 border border-green-400/20">AI Tool</span>
+          <h3 class="font-syne font-bold text-lg sm:text-xl text-white mb-3 group-hover:text-green-400 transition-colors duration-200">Rawly.io</h3>
+          <p class="text-sm text-gray-400 leading-relaxed mb-5">AI-native sales stack replacing Apollo, Lemlist, Expandi & Instantly. Prospecting, email verification, AI copywriting, multichannel campaigns.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">AI</span>
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">Sales</span>
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">Email</span>
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">Multichannel</span>
+          </div>
+        </a>
+
+        <!-- Hustler Engine -->
+        <a href="https://hustlerengine.com" target="_blank" class="project-card block p-7 sm:p-9 group cursor-pointer bg-card/50 h-full">
+          <div class="flex items-start justify-between mb-5">
+            <span class="text-3xl">🚀</span>
+            <span class="arrow-reveal inline-flex items-center gap-1 text-amber-400 text-sm">
+              Visit <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </span>
+          </div>
+          <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wide uppercase mb-4 bg-amber-400/15 text-amber-400 border border-amber-400/20">Marketing</span>
+          <h3 class="font-syne font-bold text-lg sm:text-xl text-white mb-3 group-hover:text-amber-400 transition-colors duration-200">Hustler Engine</h3>
+          <p class="text-sm text-gray-400 leading-relaxed mb-5">AI-powered email marketing & lead gen platform. Find leads, generate personalized emails, run campaigns.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">AI</span>
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">Email Marketing</span>
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">Lead Gen</span>
+          </div>
+        </a>
+
+        <!-- NFT Swap -->
+        <div onclick="document.getElementById('tubitakModal').classList.remove('hidden')" class="project-card block p-7 sm:p-9 group cursor-pointer bg-card/50 h-full">
+          <div class="flex items-start justify-between mb-5">
+            <span class="text-3xl">⛓️</span>
+            <span class="arrow-reveal inline-flex items-center gap-1 text-orange-400 text-sm">
+              Details <i data-lucide="info" class="w-4 h-4"></i>
+            </span>
+          </div>
+          <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wide uppercase mb-4 bg-orange-400/15 text-orange-400 border border-orange-400/20">Blockchain</span>
+          <h3 class="font-syne font-bold text-lg sm:text-xl text-white mb-3 group-hover:text-orange-400 transition-colors duration-200">NFT Swap — TÜBİTAK</h3>
+          <p class="text-sm text-gray-400 leading-relaxed mb-5">Ethereum NFT swap protocol with smart contracts. Received full-time offer post-internship.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">Solidity</span>
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">Ethereum</span>
+            <span class="tag-pill px-2.5 py-1 rounded-md text-[11px] border border-white/10 text-gray-400">JavaScript</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="py-24 sm:py-32 bg-dark relative z-10">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16">
+        <!-- Left: Heading -->
+        <div>
+          <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Expertise</p>
+          <h2 class="font-syne font-bold text-3xl sm:text-4xl tracking-tight text-white">Skills &<br>Technologies</h2>
+        </div>
+
+        <!-- Right: Skill Groups -->
+        <div class="space-y-8">
+
+          <!-- Programming Languages & Frameworks -->
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-4">Programming Languages & Frameworks</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Python</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">JavaScript</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">TypeScript</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">React Native</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Next.js</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Java</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">C</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">C++</span>
+            </div>
+          </div>
+
+          <!-- Domains -->
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-4">Domains</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Blockchain & Web3</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">SaaS Development</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">AI Integration</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Backend Dev</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Frontend Dev</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">ERP Systems</span>
+            </div>
+          </div>
+
+          <!-- Spoken Languages -->
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-4">Spoken Languages</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">🇬🇧 English C1</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">🇩🇪 German B2</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">🇹🇷 Turkish Native</span>
+            </div>
+          </div>
+
+          <!-- Soft Skills -->
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-4">Soft Skills</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Leadership</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Teamwork</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Problem Solving</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Communication</span>
+              <span class="tag-pill px-3 py-1.5 rounded-lg text-sm border border-accent/40 text-accent bg-accent/10 cursor-default">Project Management</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE & EDUCATION -->
+  <section id="experience" class="py-24 sm:py-32 bg-surface relative z-10">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-14">
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Background</p>
+        <h2 class="font-syne font-bold text-3xl sm:text-4xl tracking-tight text-white">Experience & Education</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16">
+        <!-- Experience -->
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-8">Experience</p>
+          
+          <div class="space-y-0">
+            <div class="relative pl-8 pb-10">
+              <div class="timeline-line"></div>
+              <div class="absolute left-0 top-1 timeline-dot"></div>
+              <p class="text-xs text-accent font-semibold tracking-wide mb-1">2022</p>
+              <h3 class="font-syne font-bold text-white text-base mb-1">TÜBİTAK Intern</h3>
+              <p class="text-sm text-gray-400">Blockchain & Smart Contract Development. Developed NFT Swap Protocol, earned full-time offer.</p>
+            </div>
+
+            <div class="relative pl-8 pb-10">
+              <div class="timeline-line"></div>
+              <div class="absolute left-0 top-1 timeline-dot"></div>
+              <p class="text-xs text-accent font-semibold tracking-wide mb-1">2019 — 2023</p>
+              <h3 class="font-syne font-bold text-white text-base mb-1">Byrika Furniture</h3>
+              <p class="text-sm text-gray-400">Sales Manager & Web Developer. Managed operations and built digital presence for the furniture business.</p>
+            </div>
+
+            <div class="relative pl-8">
+              <div class="absolute left-0 top-1 timeline-dot"></div>
+              <p class="text-xs text-accent font-semibold tracking-wide mb-1">2021 — 2022</p>
+              <h3 class="font-syne font-bold text-white text-base mb-1">Marmara University UAV Team</h3>
+              <p class="text-sm text-gray-400">Software Developer for the university's Unmanned Aerial Vehicle project.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-8">Education</p>
+
+          <div class="space-y-0">
+            <div class="relative pl-8 pb-10">
+              <div class="timeline-line"></div>
+              <div class="absolute left-0 top-1 timeline-dot"></div>
+              <p class="text-xs text-accent font-semibold tracking-wide mb-1">2019 — Present</p>
+              <h3 class="font-syne font-bold text-white text-base mb-1">Marmara University</h3>
+              <p class="text-sm text-gray-400">B.Sc. Computer Engineering. Focus on software engineering, blockchain, and AI systems.</p>
+            </div>
+
+            <div class="relative pl-8">
+              <div class="absolute left-0 top-1 timeline-dot"></div>
+              <p class="text-xs text-accent font-semibold tracking-wide mb-1">2022 — 2023</p>
+              <h3 class="font-syne font-bold text-white text-base mb-1">Universidad de Málaga</h3>
+              <p class="text-sm text-gray-400">Erasmus Exchange Program, Málaga, Spain. International academic experience in computer engineering.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-24 sm:py-32 bg-dark relative z-10">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Get in Touch</p>
+      <h2 class="font-syne font-bold text-3xl sm:text-4xl tracking-tight text-white mb-4">Open to new opportunities</h2>
+      <p class="text-gray-400 text-base max-w-lg mx-auto mb-10">Currently seeking roles in blockchain, SaaS, or AI-driven product development. Let's connect.</p>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="mailto:Mertaslan.business@gmail.com" class="btn-primary px-7 py-3.5 rounded-lg text-sm font-semibold inline-flex items-center justify-center gap-3">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          Mertaslan.business@gmail.com
+        </a>
+        <a href="tel:+905070083105" class="btn-ghost px-7 py-3.5 rounded-lg text-sm font-semibold inline-flex items-center justify-center gap-3">
+          <i data-lucide="phone" class="w-4 h-4"></i>
+          +90 507 008 31 05
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TÜBİTAK Modal -->
+  <div id="tubitakModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center px-4" style="background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);">
+    <div class="relative max-w-lg w-full rounded-2xl border border-white/10 p-8 sm:p-10" style="background: #13131d;">
+      <!-- Close -->
+      <button onclick="document.getElementById('tubitakModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Icon + badge -->
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-11 h-11 rounded-xl bg-orange-400/10 border border-orange-400/20 flex items-center justify-center text-xl">⛓️</div>
+        <span class="px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wide uppercase bg-orange-400/15 text-orange-400 border border-orange-400/20">Classified Work</span>
+      </div>
+
+      <!-- Heading -->
+      <h3 class="font-syne font-bold text-xl text-white mb-3">This project isn't mine to share.</h3>
+
+      <!-- Body -->
+      <p class="text-gray-400 text-sm leading-relaxed mb-4">
+        The NFT Swap protocol was developed during my internship at <span class="text-white font-medium">TÜBİTAK</span> — Turkey's Scientific and Technological Research Council, a state institution under the Ministry of Industry and Technology.
+      </p>
+      <p class="text-gray-400 text-sm leading-relaxed mb-6">
+        The codebase was co-written alongside a senior engineer at the institution — a genuine collaboration where I contributed to the smart contract architecture and token transaction logic. That said, everything built inside TÜBİTAK belongs to TÜBİTAK. The experience, the craft, and the full-time offer it earned? Those are mine to keep.
+      </p>
+
+      <!-- Subtle highlight box -->
+      <div class="rounded-xl border border-white/[0.07] px-5 py-4 text-sm text-gray-400 leading-relaxed" style="background: rgba(255,255,255,0.03);">
+        🔒 <span class="text-gray-300">Stack:</span> Solidity · Ethereum · JavaScript · Smart Contracts · Data Encryption
+      </div>
+
+      <!-- Close button -->
+      <button onclick="document.getElementById('tubitakModal').classList.add('hidden')" class="mt-6 w-full py-3 rounded-lg text-sm font-semibold text-white transition-all" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+        Got it
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/[0.06] py-6 bg-dark relative z-10">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-sm text-gray-500">© 2025 Yakup Mert Aslan</p>
+      <p class="text-sm text-gray-500 flex items-center gap-1.5">
+        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-accent"></i> Istanbul, Turkey
+      </p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    // --- HERO ANIMATION LOGIC ---
+    const initHeroAnimation = () => {
+      const canvas = document.getElementById('hero-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      
+      // Configuration
+      const particleCount = window.innerWidth < 768 ? 40 : 90; // Fewer particles on mobile
+      const connectionDistance = 140;
+      const mouseDistance = 200;
+      const color = '167, 139, 250'; // RGB for #a78bfa
+
+      let mouse = { x: null, y: null };
+
+      // Handle Mouse
+      window.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+
+      window.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      // Resize
+      const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      };
+      window.addEventListener('resize', resize);
+      resize();
+
+      // Particle Class
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.vx = (Math.random() - 0.5) * 0.5; // Very slow movement
+          this.vy = (Math.random() - 0.5) * 0.5;
+          this.size = Math.random() * 2 + 1;
+          this.baseX = this.x;
+          this.baseY = this.y;
+        }
+
+        update() {
+          // Base movement
+          this.x += this.vx;
+          this.y += this.vy;
+
+          // Mouse interaction (gentle push)
+          if (mouse.x != null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < mouseDistance) {
+              const forceDirectionX = dx / distance;
+              const forceDirectionY = dy / distance;
+              const force = (mouseDistance - distance) / mouseDistance;
+              const directionX = forceDirectionX * force * 2; // Push strength
+              const directionY = forceDirectionY * force * 2;
+              
+              this.x -= directionX;
+              this.y -= directionY;
+            }
+          }
+
+          // Bounce off edges
+          if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+          if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+        }
+
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${color}, 0.5)`; // Dot opacity
+          ctx.fill();
+        }
+      }
+
+      // Init Particles
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+
+      // Animation Loop
+      const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Update and draw particles
+        particles.forEach(particle => {
+          particle.update();
+          particle.draw();
+        });
+
+        // Draw Connections
+        for (let a = 0; a < particles.length; a++) {
+          for (let b = a; b < particles.length; b++) {
+            let dx = particles[a].x - particles[b].x;
+            let dy = particles[a].y - particles[b].y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < connectionDistance) {
+              ctx.beginPath();
+              // Opacity based on distance
+              let opacity = 1 - (distance / connectionDistance);
+              ctx.strokeStyle = `rgba(${color}, ${opacity * 0.15})`; // Line opacity
+              ctx.lineWidth = 1;
+              ctx.moveTo(particles[a].x, particles[a].y);
+              ctx.lineTo(particles[b].x, particles[b].y);
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+    };
+
+    // Initialize animation when DOM is ready
+    document.addEventListener('DOMContentLoaded', initHeroAnimation);
+
+
+    // --- EXISTING SITE LOGIC ---
+    
+    // Close modal on backdrop click
+    document.getElementById('tubitakModal').addEventListener('click', function(e) {
+      if (e.target === this) this.classList.add('hidden');
+    });
+
+    lucide.createIcons();
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('nav-scrolled');
+      } else {
+        navbar.classList.remove('nav-scrolled');
+      }
+    });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    const closeMenu = () => {
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    closeMenuBtn.addEventListener('click', closeMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('#projects .mb-14, #projects .mosaic-grid, #skills > div, #experience .mb-14, #experience .grid, #contact > div').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = `opacity 0.6s ease ${i * 0.05}s, transform 0.6s ease ${i * 0.05}s`;
+      observer.observe(el);
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (window.scrollY >= sectionTop) current = section.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('text-white');
+        link.classList.add('text-gray-400');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('text-white');
+          link.classList.remove('text-gray-400');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
